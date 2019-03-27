@@ -3562,6 +3562,37 @@ gui_split_preview "_construction_material $*",${-3--1}
 	endl done
 	fx_superstreak_preview :
 	fx_superstreak $*
+	
+#@gui Row Shifter: fx_row_shift, fx_row_shift_preview(0)
+#@gui : note = note("Shifts rows.")
+#@gui : sep = separator()
+#@gui : Order = choice("X then Y","Simultaneous","Y then X")
+#@gui : X shift = float(0,-5,5)
+#@gui : X centre = float(0.5,0,1)
+#@gui : Y shift = float(0,-5,5)
+#@gui : Y centre = float(0.5,0,1)
+#@gui : Interpolation = choice(3,"None","Nearest","Average","Bilinear","Grid","Bicubic")
+#@gui : Invert Shifts = bool(0)
+fx_row_shift :
+repeat $! l[$>]
+inv={($7*-2)+1}
+opt={int(($1-1)*$inv)}
+if {$opt==-1}
+f "j((y-h*$3)*$2*"$inv",0,0,0,$6,2)"
+f "j(0,(x-w*$5)*$4*"$inv",0,0,$6,2)"
+elif {$opt==1}
+f "j(0,(x-w*$5)*$4*"$inv",0,0,$6,2)"
+f "j((y-h*$3)*$2*"$inv",0,0,0,$6,2)"
+else
+if {$inv==1}
+f "j((y-h*$3)*$2*"$inv"+,(x-w*$5)*$4*"$inv",0,0,$6,2)"
+elif {$inv==-1}
+f "j((y-h*$3)*$2*"$inv",(x-w*$5)*$4*"$inv",0,0,$6,2)"
+fi
+fi
+endl done
+fx_row_shift_preview :
+fx_row_shift $*
 
 ######################
 
