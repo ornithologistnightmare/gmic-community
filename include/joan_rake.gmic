@@ -2994,7 +2994,7 @@ pseudo_ecb:
 ww={w}
 hh={h}
 total_image_minus_one={$!-1}
-if $total_image_minus_one&&$30 r 150%,150%,100%,100%,0,$31,.5,.5 a x _pseudo_ecb ${1-29} s x,{$total_image_minus_one+1} r $ww,$hh,100%,100%,0,0,.5,.5
+if $total_image_minus_one&&$30 r 150%,150%,100%,100%,0,$31,.5,.5 a x _pseudo_ecb ${1-29} s x,{$total_image_minus_one+1} r $ww,$hh,100%,100%,0,0,.5,.5 rv
 else _pseudo_ecb ${1-29} fi
 _pseudo_ecb:
 csswap $1,0
