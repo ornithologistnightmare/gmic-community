@@ -2976,7 +2976,7 @@ sawtoother_lab8 $*
 #@gui : note = note("<b>Self-Image Post-Processing</b> \n\n <i>This invokes a self-blending operation after the main pseudo-ecb has been generated with different blend mode.</i>")
 #@gui : Activate Self-Image Post-Processing = bool(1)
 #@gui : Equalize ECB Processing = bool(0)
-#@gui : Psuedo-Coloring = bool(1)
+#@gui : Pseudo-Coloring = bool(1)
 #@gui : Self-Blend = choice(41,"add","alpha","and","average","blue","burn","darken",
 #@gui : "difference","divide","dodge","exclusion","freeze",
 #@gui : "grainextract","grainmerge","green","hardlight","hardmix",
@@ -2986,10 +2986,17 @@ sawtoother_lab8 $*
 #@gui : "shapeaverage","softburn","softdodge","softlight","stamp",
 #@gui : "subtract","value","vividlight","xor")
 #@gui : Self-Blend Opacity = float(1,0,1)
+#@gui : sep = separator(), note = note("<b>Multilayer processing</b>\n\n<small><b>Warning:</b>All layer must be of same size for expected result!</small>"), Apply to all layers? = bool(0)
+#@gui : Boundary Condition = choice(0,"Neumann","Periodic","Mirror")
 #@gui : sep = separator(), Preview type = choice("Full","Forward horizontal","Forward vertical","Backward horizontal","Backward vertical","Duplicate top","Duplicate left","Duplicate bottom","Duplicate right","Duplicate horizontal","Duplicate vertical","Checkered","Checkered inverse"), Preview Split = point(50,50,0,0,200,200,200,0,10)_0
 #@gui : sep = separator(), note = note("<small>Author : <i>Reptorian</i>      Latest update: <i>2018/12/30</i>.</small>")
-
 pseudo_ecb:
+ww={w}
+hh={h}
+total_image_minus_one={$!-1}
+if $total_image_minus_one&&$30 r 150%,150%,100%,100%,0,$31,.5,.5 a x _pseudo_ecb ${1-29} s x,{$total_image_minus_one+1} r $ww,$hh,100%,100%,0,0,.5,.5
+else _pseudo_ecb ${1-29} fi
+_pseudo_ecb:
 csswap $1,0
 repeat $! l[$>]
 repeat {$20+1}
